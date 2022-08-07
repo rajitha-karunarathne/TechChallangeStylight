@@ -11,6 +11,10 @@ Parameters:
     Description: RDS Service Estimation
     Type: String
     Default: 0.50
+  USERSNSEMAIL:
+    Description: SNS Email Address
+    Type: String
+    Default: rajitha.vrtu@gmail.com
 
 #Defining the resources for the Lambda and associating with Notification
 Resources:
@@ -153,7 +157,7 @@ Resources:
     Properties:
       DisplayName: StylightSNSTopic
       Subscription:
-        - Endpoint: rajitha.vrtu@gmail.com
+        - Endpoint: !Ref USERSNSEMAIL
           Protocol: email
       TopicName: StylightSNSTopic
 

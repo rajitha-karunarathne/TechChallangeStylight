@@ -9,6 +9,10 @@ on:
         description: 'AWS Region to deploy to'
         required: true
         default: 'us-east-1'
+      sns_user_email:
+        description: 'Email to Send SNS Notifications'
+        required: true
+        default: 'rajitha.vrtu@gmail.com'
 
 name: Deploy Stylight Application Infrastructure
 
@@ -66,6 +70,7 @@ jobs:
       with:
         name: Stylight-Lambda
         template: ./infrastructure/Stylight-Lambda.yml
+        parameter-overrides: "USERSNSEMAIL=${{ github.event.inputs.sns_user_email }}"
         no-fail-on-empty-changeset: "1"
 
     # Stylight Lambda
