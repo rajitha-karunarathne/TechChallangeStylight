@@ -1,0 +1,48 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: IAM Configurations for Stylight Application
+
+Parameters:
+  AWSLambdaPolicy:
+    Type: String
+    Description: 'AWS Managed Policy for Lambda'
+    Default: arn:aws:iam::aws:policy/AWSLambda_FullAccess
+
+
+#Defining the multiple resources for the IAM Role
+Resources:
+  LambdaDeployRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - lambda.amazonaws.com
+            Action:
+              - sts:AssumeRole
+      Tags:
+        - Key: Name
+          Value: Stylight-Lambda-IAM-Role
+      Path: /
+      ManagedPolicyArns:
+        - !Ref AWSLambdaPolicy
+      Policies:
+        - PolicyName: StylightLambdaExecutionRolePolicy
+          PolicyDocument:
+            Statement:
+            - Effect: Allow
+              Action:
+                # Lambda Permission for Cost Explorer and SNS 
+                - 'ce:*'
+                - 'SNS:*'
+              Resource: '*'
+
+Outputs:
+
+  StylightLambdaExecutionRole:
+    Description: Stylight Lambda Execution Role
+    Value: !GetAtt 'LambdaDeployRole.Arn'
+    Export:
+      Name: 'StylightLambdaExecutionRole'

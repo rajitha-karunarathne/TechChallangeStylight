@@ -1,0 +1,68 @@
+# This GitHub Actions workflow runs on manual trigger on a branch of a
+# repository, and configures the Infrastructure responsible for the Stylight Application .
+#
+
+on:
+  workflow_dispatch:
+    inputs:
+      region:
+        description: 'AWS Region to deploy to'
+        required: true
+        default: 'us-east-1'
+
+name: Deploy Stylight Application Infrastructure
+
+jobs:
+  # Deploy the Infrastructure Setup for the Stylight Application
+  Stylight:
+    name: Deploying the CFT changes
+    runs-on: ubuntu-latest
+    outputs:
+      env-name: ${{ steps.env-name.outputs.environment }}
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+  # Setting up the AWS Credentials
+    - name: Configure AWS credentials
+      id: creds
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ${{ github.event.inputs.region }}
+
+    - name: Configure environment name
+      id: env-name
+      env:
+        REPO: ${{ github.repository }}
+      run: |
+        ENVIRONMENT=`echo $REPO | tr "/" "-"`
+        echo "Environment name: $ENVIRONMENT"
+        echo "::set-output name=environment::$ENVIRONMENT"
+    
+    # Deploying the IAM
+    - name: Deploying Stylight IAM Stack
+      id: Stylight-IAM
+      uses: aws-actions/aws-cloudformation-github-deploy@v1
+      with:
+        name: Stylight-IAM
+        template: ./infrastructure/Stylight-IAM.yml
+        no-fail-on-empty-changeset: "1"
+
+    # Deploying the Lambda
+    - name: Deploying Stylight Lambda Stack
+      id: Stylight-Lambda
+      uses: aws-actions/aws-cloudformation-github-deploy@v1
+      with:
+        name: Stylight-Lambda
+        template: ./infrastructure/Servian-IAM.yml
+        no-fail-on-empty-changeset: "1"
+
+    # Stylight Lambda
+    - name: Print Stylight Lambda Details
+      env:
+        AppEndpoint: ${{ steps.Stylight-Lambda.outputs.StylightLambdaArn }}
+      run: |
+        echo "Stylight Lambda Details: $AppEndpoint"
+
