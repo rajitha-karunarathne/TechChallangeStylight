@@ -40,7 +40,7 @@ Following CFTs have been used to deploy the above Infrastructure Setup into an A
 
 3.	Select the Github Actions and then “Deploy Stylight Application Infrastructure” and Run the Workflow as follows, give some time to Deploy the full infrastructure setup.
 
-4. If all goes well and the build will be successful and please Confirm the SNS subscription once you have received the mail as below for the above entered email in order to receive the SNS notifications.
+4. If all goes well and the build will be successful and please Confirm the SNS subscription once you have received the mail for the above entered email in order to receive the SNS notifications.
 
 
 
