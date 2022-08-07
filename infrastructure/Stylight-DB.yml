@@ -1,0 +1,43 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Dynamo DB Configurations for Stylight Application
+
+Parameters:
+  HashKeyElementName:
+    Type: String
+    Default: EntryDateTime
+    Description: Hash Key Name
+  HashKeyElementType:
+    Type: String
+    Default: S
+    Description: Hash Key Type
+
+
+#Defining the multiple resources for DynamoDB table
+Resources:
+  CostTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: CostAnalysis
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - 
+          AttributeName: !Ref HashKeyElementName
+          AttributeType: !Ref HashKeyElementType
+      KeySchema:
+        - 
+          AttributeName: !Ref HashKeyElementName
+          KeyType: HASH
+
+Outputs:
+
+  CostTableDynamoDB:
+    Description: Table Created to store Cost Details.
+    Value: !Ref CostTable
+    Export:
+      Name: CostTableDynamoDB
+
+  CostTableDynamoDBARN:
+    Description: Table Created to store Cost Details.
+    Value: !GetAtt 'CostTable.Arn'
+    Export:
+      Name: CostTableDynamoDBARN

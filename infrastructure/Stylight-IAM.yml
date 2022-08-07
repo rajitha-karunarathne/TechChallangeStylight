@@ -38,6 +38,14 @@ Resources:
                 - 'ce:*'
                 - 'SNS:*'
               Resource: '*'
+        - PolicyName: StylightLambdaDBPolicy
+          PolicyDocument:
+            Statement:
+            - Effect: Allow
+              Action:
+                # DynamoDB Permissions
+                - 'dynamodb:*'
+              Resource: !ImportValue CostTableDynamoDBARN
 
 Outputs:
 

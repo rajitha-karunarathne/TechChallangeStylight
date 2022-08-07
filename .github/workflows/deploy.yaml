@@ -40,6 +40,15 @@ jobs:
         ENVIRONMENT=`echo $REPO | tr "/" "-"`
         echo "Environment name: $ENVIRONMENT"
         echo "::set-output name=environment::$ENVIRONMENT"
+
+    # Deploying the DynamoDB Table
+    - name: Deploying Stylight DynamoDB Stack
+      id: Stylight-DB
+      uses: aws-actions/aws-cloudformation-github-deploy@v1
+      with:
+        name: Stylight-DB
+        template: ./infrastructure/Stylight-DB.yml
+        no-fail-on-empty-changeset: "1"
     
     # Deploying the IAM
     - name: Deploying Stylight IAM Stack
