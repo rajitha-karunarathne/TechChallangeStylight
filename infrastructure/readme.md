@@ -6,30 +6,30 @@ Since this is more over scheduled event-based application and in order to void c
 
 ## 1.	Tech Stack Used for the Solution:
 
-•	Cloud Service Provider: AWS
-•	Serverless Service: Lambda
-•	Data Base: DynamoDB 
-•	Event Scheduler: Event Bridge
-•	IaC : AWS CloudFormation
-•	Version Control and Source Code Management + CI/CD : github.com
-•	Repository URL: https://github.com/rajitha-karunarathne/TechChallengeStylight
+1. Cloud Service Provider: AWS
+2. Serverless Service: Lambda
+3. DataBase: DynamoDB 
+4. Event Scheduler: Event Bridge
+5. IaC : AWS CloudFormation
+6. Version Control and Source Code Management + CI/CD : github.com
+7. Repository URL: https://github.com/rajitha-karunarathne/TechChallengeStylight
 
 ## 2.	CFT Template Sequence:
 
 Following CFTs have been used to deploy the above Infrastructure Setup into an AWS Account, which can be founded in the above-mentioned repository path -> https://github.com/rajitha-karunarathne/TechChallengeStylight/tree/master/infrastructure
 
-I.	Stylight-DB.yml : To Deploy the DynamoDB to later audit the findings.
-II.	Stylight-IAM.yml : To Deploy the necessary policy permission to run the solution.
-III.Stylight-Lambda.yml : To Deploy the Lambda Function , SNS Topic , Event Scheduler for the solution.
+1. Stylight-DB.yml : To Deploy the DynamoDB to later audit the findings.
+2. Stylight-IAM.yml : To Deploy the necessary policy permission to run the solution.
+3. Stylight-Lambda.yml : To Deploy the Lambda Function , SNS Topic , Event Scheduler for the solution.
 
 
 ## 3.	Deployment Steps:
 
 ## Prerequisite: 
 
-•	Github account access.
-•	Fork or clone the repo -> https://github.com/rajitha-karunarathne/TechChallengeApp
-•	AWS account with Administrator / root user access (Recommended).
+1. Github account access.
+2. Fork or clone the repo -> https://github.com/rajitha-karunarathne/TechChallengeApp
+3. AWS account with Administrator / root user access (Recommended).
 
 ## Steps:
 
