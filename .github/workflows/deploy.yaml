@@ -13,6 +13,14 @@ on:
         description: 'Email to Send SNS Notifications'
         required: true
         default: 'rajitha.vrtu@gmail.com'
+      ec2_threshold:
+        description: 'EC2 Cost Threshold ($)'
+        required: true
+        default: '0.50'
+      rds_threshold:
+        description: 'RDS Cost Threshold ($)'
+        required: true
+        default: '0.50'
 
 name: Deploy Stylight Application Infrastructure
 
@@ -70,7 +78,7 @@ jobs:
       with:
         name: Stylight-Lambda
         template: ./infrastructure/Stylight-Lambda.yml
-        parameter-overrides: "USERSNSEMAIL=${{ github.event.inputs.sns_user_email }}"
+        parameter-overrides: "USERSNSEMAIL=${{ github.event.inputs.sns_user_email }} , EC2ESTIMATION=${{ github.event.inputs.ec2_threshold }} , RDSESTIMATION=${{ github.event.inputs.rds_threshold }}"
         no-fail-on-empty-changeset: "1"
 
     # Stylight Lambda
