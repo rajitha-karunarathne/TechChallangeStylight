@@ -51,7 +51,7 @@ def usage_calculation(service,billing_client,your_estimation,db_client,db_name):
             ],
        }
        },
-       Granularity='DAILY', 
+       Granularity='MONTHLY', 
        Metrics=[ 'UnblendedCost'],
        GroupBy=[
             {
@@ -75,6 +75,7 @@ def usage_calculation(service,billing_client,your_estimation,db_client,db_name):
         
             line = "{} : ${:,.2f}".format(name, amount)
             cost_usage.append(line)
+            update_db_table(db_client,db_name,name,amount,str_today,str_weekback)
         
     return cost_usage
 
